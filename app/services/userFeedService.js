@@ -26,4 +26,8 @@ userFeedService.getUserFeed = async (criteria, projection) => {
   return await userFeedModel.findOne(criteria, projection).lean();
 };
 
+userFeedService.getUserFeeds = async (criteria, projection) => {
+  return await userFeedModel.find(criteria, projection).lean();
+};
+
 module.exports = userFeedService;
