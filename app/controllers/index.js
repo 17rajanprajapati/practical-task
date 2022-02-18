@@ -3,5 +3,7 @@
  ********* independently ********
  ********************************/
 module.exports = {
-    userController: require(`./userController`)
+    userController: require(`./userController`),
+    newsCategoryController: require(`./newsCategoryController`),
+    userController: require(`./userController`),
 };

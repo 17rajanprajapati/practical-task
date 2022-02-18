@@ -1,4 +1,4 @@
-const { MESSAGES, ERROR_TYPES } = require('../utils/constants');
+const { MESSAGES, ERROR_TYPES, AVAILABLE_AUTHS, USER_TYPE } = require('../utils/constants');
 const HELPERS = require("../helpers");
 const { userModel } = require(`../models`);
 const { decryptJwt } = require('../utils/utils');
@@ -8,9 +8,9 @@ let authService = {};
 /**
  * function to authenticate user.
  */
-authService.userValidate = () => {
+authService.userValidate = (auth) => {
     return (request, response, next) => {
-        validateUser(request).then((result) => {
+        validateUser(request, auth).then((result) => {
             if (result.isAuthorized) {
                 return next();
             }
@@ -28,7 +28,7 @@ authService.userValidate = () => {
  * function to validate user's jwt token and fetch its details from the system. 
  * @param {} request 
  */
-let validateUser = async (request) => {
+let validateUser = async (request, auth) => {
     try {
         let decodedToken;
         try {
@@ -36,9 +36,14 @@ let validateUser = async (request) => {
         } catch (err) {
             return { isAuthorized: false, msg: MESSAGES.SESSION_EXPIRED }
         }
-        let authenticatedUser = await userModel.findOne({ _id: decodedToken.id }).lean();
-        if (authenticatedUser) {
-            request.user = authenticatedUser;
+        let user = await userModel.findOne({ _id: decodedToken.id }).lean();
+        if (user) {
+            if (auth === AVAILABLE_AUTHS.USER && user.userType != USER_TYPE.USER) {
+                return { isAuthorized: false }
+            } else if (auth === AVAILABLE_AUTHS.ADMIN && user.userType != USER_TYPE.ADMIN) {
+                return { isAuthorized: false }
+            }
+            request.user = user;
             return { isAuthorized: true };
         }
         return { isAuthorized: false };

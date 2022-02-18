@@ -1,7 +1,7 @@
 const SERVICES = require('../services');
 const Joi = require('joi');
 
-const { MESSAGES, ERROR_TYPES, AVAILABLE_AUTHS } = require('./constants');
+const { MESSAGES, ERROR_TYPES } = require('./constants');
 const HELPERS = require('../helpers');
 const multer = require('multer');
 const uploadMiddleware = multer();
@@ -19,8 +19,8 @@ routeUtils.route = async (app, routes = []) => {
       middlewares = [multerMiddleware];
     }
     middlewares.push(getValidatorMiddleware(route));
-    if (route.auth === AVAILABLE_AUTHS.USER) {
-      middlewares.push(SERVICES.authService.userValidate());
+    if (route.auth) {
+      middlewares.push(SERVICES.authService.userValidate(route.auth));
     };
     app.route(route.path)[route.method.toLowerCase()](...middlewares, getHandlerMethod(route));
   });

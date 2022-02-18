@@ -13,5 +13,11 @@ module.exports = {
   NOT_FOUND: 'Data not found',
   FILE_UPLOADED_SUCCESSFULLY: 'File uploaded successfully',
   EMAIL_ALREADY_EXISTS: 'This email is already registered with system',
-  EMAIL_CANNOT_BE_SAME_AS_PREVIOUS_EMAIL: 'Email cannot be same as previous email'
+  EMAIL_CANNOT_BE_SAME_AS_PREVIOUS_EMAIL: 'Email cannot be same as previous email',
+  CATEGORY_ADDED_SUCCESSFULLY: 'Category added successfully',
+  CATEGORY_UPDATED_SUCCESSFULLY: 'Category updated successfully',
+  CATEGORY_FETCHED_SUCCESSFULLY: 'Category fetched successfully',
+  CATEGORY_DELETED_SUCCESSFULLY: 'Category deleted successfully',
+  CATEGORY_ALREADY_EXISTS: 'Category already exists',
+  CATEGORY_NOT_FOUND: 'Category not found',
 };

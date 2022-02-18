@@ -3,8 +3,17 @@ let CONSTANTS = {};
 CONSTANTS.MESSAGES = require('./messages');
 
 CONSTANTS.AVAILABLE_AUTHS = {
-    USER: "user"
+    USER: "user",
+    ADMIN: "admin",
 };
+
+CONSTANTS.USER_TYPE = {
+    ADMIN: 1,
+    USER: 2,
+};
+
+CONSTANTS.PHONE_REGEX=/^\+\d{1,3}\d{8,10}$/;
+CONSTANTS.TIME_REGEX=/(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)/;
 
 CONSTANTS.SECURITY = {
     JWT_SIGN_KEY: "RANDOM_JWT_KEY_TO_PASTE_HERE",

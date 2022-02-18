@@ -7,5 +7,7 @@ const CONFIG = require('../../config');
 module.exports = {
     userService: require(`./userService`),
     authService: require(`./authService`),
-    fileUploadService: require(`./fileUploadService`)
+    fileUploadService: require(`./fileUploadService`),
+    userFeedService: require(`./userFeedService`),
+    newsCategoryService: require(`./newsCategoryService`),
 };
