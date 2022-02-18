@@ -2,7 +2,7 @@
 const MONGOOSE = require('mongoose');
 const Schema = MONGOOSE.Schema;
 
-const { GENDER, LANGUAGE } = require('../utils/constants');
+const { GENDER, LANGUAGE, USER_TYPE } = require('../utils/constants');
 /**************************************************
  ************* User Model or collection ***********
  **************************************************/
@@ -16,7 +16,8 @@ const userSchema = new Schema({
     martialStatus: { type: Boolean, default: false },
     dob: { type: Date },
     timeOfBirth: { type: String },
-    profileImageUrl: { type: String }
+    profileImageUrl: { type: String },
+    userType: { type: Number, enum: Object.values(USER_TYPE), default: USER_TYPE.USER },
 });
 
 userSchema.set('timestamps', true);

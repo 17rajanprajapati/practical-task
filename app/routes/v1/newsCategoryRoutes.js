@@ -27,7 +27,7 @@ let routes = [
 			},
 			body: {
 				categoryName: Joi.string().required().description('news category\'s name.'),
-				categoryId: Joi.string().objectId().required().description('news category\'s id.'),
+				categoryId: Joi.string().required().description('news category\'s id.'),
 			}
 		},
 		auth: AVAILABLE_AUTHS.ADMIN,

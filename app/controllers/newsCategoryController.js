@@ -25,7 +25,7 @@ newsCategoryController.update = async (payload) => {
   let criteria = { _id: payload.categoryId };
   let catgeory = await SERVICES.newsCategoryService.findOne(criteria);
   if (catgeory) {
-    catgeory = await SERVICES.newsCategoryService.findOneAndUpdate(criteria, { categoryName: payload.categoryName });
+    catgeory = await SERVICES.newsCategoryService.findOneAndUpdate(criteria, { categoryName: payload.categoryName }, {new: true});
     return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_UPDATED_SUCCESSFULLY), { catgeory });
   }
   throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.DATA_NOT_FOUND);
@@ -52,8 +52,8 @@ newsCategoryController.delete = async (payload) => {
   let criteria = { _id: payload.categoryId };
   let catgeory = await SERVICES.newsCategoryService.findOne(criteria);
   if (catgeory) {
-    catgeory = await SERVICES.newsCategoryService.findOneAndDelete(criteria, { categoryName: payload.categoryName });
-    return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_DELETED_SUCCESSFULLY), { catgeory });
+    await SERVICES.newsCategoryService.deleteOne(criteria, { categoryName: payload.categoryName });
+    return HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_DELETED_SUCCESSFULLY);
   }
   throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.DATA_NOT_FOUND);
 };

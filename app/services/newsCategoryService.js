@@ -33,8 +33,8 @@ newsFeedService.findOne = async (criteria, projection) => {
 /**
  * function to fetch user from the system based on criteria.
  */
- newsFeedService.findOneAndDelete = async (criteria) => {
-  return await newsCategoryModel.findOneAndDelete(criteria).lean();
+ newsFeedService.deleteOne = async (criteria) => {
+  return await newsCategoryModel.deleteOne(criteria).lean();
 };
 
 module.exports = newsFeedService;

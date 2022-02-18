@@ -25,6 +25,10 @@ CONSTANTS.GENDER = {
     FEMALE: "Female"
 };
 
+CONSTANTS.DATABASE_VERSIONS = {
+    ONE: 1,
+};
+
 CONSTANTS.LANGUAGE = {
     HINDI: "Hindi",
     ENGLISH: "English"

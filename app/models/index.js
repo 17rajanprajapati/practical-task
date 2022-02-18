@@ -3,5 +3,8 @@
  ********* independently ********
  ********************************/
 module.exports = {
-    userModel: require(`./userModel`)
+    userModel: require(`./userModel`),
+    dbVersionModel: require(`./dbVersionModel`),
+    newsCategoryModel: require(`./newsCategoryModel`),
+    userFeedModel: require(`./userFeedModel`)
 };

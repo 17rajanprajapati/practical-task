@@ -20,6 +20,7 @@ module.exports = async function (app) {
 
     // initialize mongodb 
     await require('./db_mongo')();
+    await require('../utils/dbMigrations').migerateDatabase();
 
     // initalize routes.
     await routeUtils.route(app, routes);

@@ -19,6 +19,10 @@ module.exports = {
         SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY || 'aws-s3-secret-access-key',
         BUCKET_NAME: process.env.S3_BUCKET_NAME || 's3-bucket-name',
         CLOUD_FRONT_URL: process.env.CLOUD_FRONT_URL || 'cloud-front-url'
+    },
+    SUPER_ADMIN: {
+        SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL || 'admin@yopmail.com',
+        SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD || 'password'
     }
 };
 
