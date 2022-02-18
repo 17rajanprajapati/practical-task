@@ -12,6 +12,7 @@ const userFeedSchema = new Schema({
     createdBy: { type: Schema.Types.ObjectId, ref: 'user' },
     updatedBy: { type: Schema.Types.ObjectId, ref: 'user' },
     imageUrl: { type: String },
+    isDeleted: { type: Boolean },
 });
 
 userFeedSchema.set('timestamps', true);

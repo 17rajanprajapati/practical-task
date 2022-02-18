@@ -6,7 +6,8 @@ const Schema = MONGOOSE.Schema;
  ************* User Model or collection ***********
  **************************************************/
 const newCategorySchema = new Schema({
-    categoryName: { type: String }
+    categoryName: { type: String },
+    isDeleted: { type: Boolean },
 });
 
 newCategorySchema.set('timestamps', true);

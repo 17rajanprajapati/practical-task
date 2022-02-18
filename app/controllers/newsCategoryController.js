@@ -52,7 +52,7 @@ newsCategoryController.delete = async (payload) => {
   let criteria = { _id: payload.categoryId };
   let catgeory = await SERVICES.newsCategoryService.findOne(criteria);
   if (catgeory) {
-    await SERVICES.newsCategoryService.deleteOne(criteria, { categoryName: payload.categoryName });
+    await SERVICES.newsCategoryService.findOneAndUpdate(criteria, { isDeleted: true });
     return HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_DELETED_SUCCESSFULLY);
   }
   throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.DATA_NOT_FOUND);

@@ -20,4 +20,10 @@ module.exports = {
   CATEGORY_DELETED_SUCCESSFULLY: 'Category deleted successfully',
   CATEGORY_ALREADY_EXISTS: 'Category already exists',
   CATEGORY_NOT_FOUND: 'Category not found',
+  FEED_ADDED_SUCCESSFULLY: 'Feed added successfully',
+  FEED_UPDATED_SUCCESSFULLY: 'Feed updated successfully',
+  FEED_FETCHED_SUCCESSFULLY: 'Feed fetched successfully',
+  FEED_DELETED_SUCCESSFULLY: 'Feed deleted successfully',
+  FEED_ALREADY_EXISTS: 'Feed already exists',
+  FEED_NOT_FOUND: 'Feed not found',
 };

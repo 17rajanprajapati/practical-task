@@ -6,7 +6,7 @@ let userFeedService = {};
 /** 
  * function to register a new  user
  */
-userFeedService.registerUserFeed = async (payload) => {
+userFeedService.create = async (payload) => {
   // encrypt user's password and store it in the database.
   payload.password = await utils.hashPassword(payload.password);
   return await userFeedModel(payload).save();
@@ -15,18 +15,18 @@ userFeedService.registerUserFeed = async (payload) => {
 /**
  * function to update user.
  */
-userFeedService.updateUserFeed = async (criteria, dataToUpdate, options) => {
+userFeedService.findOneAndUpdate = async (criteria, dataToUpdate, options) => {
   return await userFeedModel.findOneAndUpdate(criteria, dataToUpdate, options);
 };
 
 /**
  * function to fetch user from the system based on criteria.
  */
-userFeedService.getUserFeed = async (criteria, projection) => {
+userFeedService.findOne = async (criteria, projection) => {
   return await userFeedModel.findOne(criteria, projection).lean();
 };
 
-userFeedService.getUserFeeds = async (criteria, projection) => {
+userFeedService.find = async (criteria, projection) => {
   return await userFeedModel.find(criteria, projection).lean();
 };
 

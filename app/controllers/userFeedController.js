@@ -5,12 +5,62 @@ const SERVICES = require('../services');
 let userFeedController = {};
 
 /**
- * function to register a user to the system.
+ * function to create.
  */
- userFeedController.getFeeds = async (payload) => {
-  let feeds = await SERVICES.userFeedService.getUserFeeds();
-  return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.USER_REGISTERED_SUCCESSFULLY), { feeds });
+userFeedController.create = async (payload) => {
+  let criteria = { categoryId: payload.categoryId };
+
+  let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
+  if (!isNewsCategory) {
+    throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
+  }
+  let feed = await SERVICES.userFeedService.create(payload);
+  return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.FEED_ADDED_SUCCESSFULLY), { feed });
 };
 
-/* export userController */
+/**
+ * Function to update.
+ */
+userFeedController.update = async (payload) => {
+  let criteria = { _id: payload.categoryId };
+  let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
+  if (!isCategory) {
+    throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
+  }
+
+  let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId });
+  if (!isFeed) {
+    throw HELPERS.responseHelper.createErrorResponse(MESSAGES.FEED_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
+  }
+  let feed = await SERVICES.userFeedService.findOneAndUpdate({ _id: payload.userFeedId }, {...payload});
+  return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.FEED_UPDATED_SUCCESSFULLY), { feed });
+};
+
+/**
+ * Function to upload file.
+ */
+userFeedController.list = async (payload) => {
+  let criteria = { };
+  if(payload.categoryId){
+    criteria['_id'] = payload.userFeedId;
+  }
+  let feeds = await SERVICES.userFeedService.find(criteria);
+  return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_FETCHED_SUCCESSFULLY), { feeds });
+};
+
+/**
+ * function to login a user to the system.
+ * @param {*} payload 
+ * @returns 
+ */
+userFeedController.delete = async (payload) => {
+  let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId });
+  if (!isFeed) {
+    throw HELPERS.responseHelper.createErrorResponse(MESSAGES.FEED_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
+  }
+  let feed = await SERVICES.userFeedService.findOneAndUpdate({ _id: payload.userFeedId }, {isDeleted: true});
+  return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.FEED_DELETED_SUCCESSFULLY), { feed });
+};
+
+/* export userFeedController */
 module.exports = userFeedController;
