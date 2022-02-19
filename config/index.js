@@ -22,8 +22,9 @@ module.exports = {
     },
     TEST_USER: {
         TEST_USER_EMAIL: process.env.TEST_USER_EMAIL || 'test@yopmail.com',
-        TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD || 'password'
-    }
+        TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD || 'password',
+        TEST_USER_NAME: process.env.TEST_USER_NAME || 'Test'
+    },
 };
 
 

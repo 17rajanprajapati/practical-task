@@ -19,7 +19,7 @@ dbMigrations.migerateDatabase = async () => {
         /** -- add dummy user  */
         let password = await hashPassword(TEST_USER.TEST_USER_PASSWORD);
         let saveData = { email: TEST_USER.TEST_USER_EMAIL, password: password, userType: CONSTANTS.USER_TYPE.ADMIN }
-        user = await MODELS.userModel.findOneAndUpdate({ email: TEST_USER.TEST_USER_EMAIL }, saveData, { upsert: true, new: true });
+        user = await MODELS.userModel.findOneAndUpdate({ fullName: TEST_USER.TEST_USER_NAME, email: TEST_USER.TEST_USER_EMAIL }, saveData, { upsert: true, new: true });
         dbVersion = await MODELS.dbVersionModel.findOneAndUpdate({}, { version: CONSTANTS.DATABASE_VERSIONS.ONE }, { upsert: true, new: true});
     }
     if (dbVersion.version < CONSTANTS.DATABASE_VERSIONS.TWO) {
