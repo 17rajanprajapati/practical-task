@@ -9,4 +9,5 @@ module.exports = {
     authService: require(`./authService`),
     fileUploadService: require(`./fileUploadService`),
     userFeedService: require(`./userFeedService`),
+    newsCategoryService: require(`./newsCategoryService`),
 };

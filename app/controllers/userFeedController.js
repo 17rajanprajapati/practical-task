@@ -1,6 +1,7 @@
 const HELPERS = require("../helpers");
 const { MESSAGES, ERROR_TYPES } = require('../utils/constants');
 const SERVICES = require('../services');
+const { getPaginationConditionForAggregate } = require('../utils/utils');
 
 let userFeedController = {};
 
@@ -8,13 +9,13 @@ let userFeedController = {};
  * function to create.
  */
 userFeedController.createFeed = async (payload) => {
-  let criteria = { categoryId: payload.categoryId };
+  let criteria = { _id: payload.categoryId };
 
   let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
-  if (!isNewsCategory) {
+  if (!isCategory) {
     throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
   }
-  let feed = await SERVICES.userFeedService.create(payload);
+  let feed = await SERVICES.userFeedService.create({...payload, createdBy: payload.user._id, updatedBy: payload.user._id});
   return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.FEED_ADDED_SUCCESSFULLY), { feed });
 };
 
@@ -32,7 +33,7 @@ userFeedController.updateFeeds = async (payload) => {
   if (!isFeed) {
     throw HELPERS.responseHelper.createErrorResponse(MESSAGES.FEED_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
   }
-  let feed = await SERVICES.userFeedService.findOneAndUpdate({ _id: payload.userFeedId }, {...payload});
+  let feed = await SERVICES.userFeedService.findOneAndUpdate({ _id: payload.userFeedId }, {...payload}, { new: true });
   return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.FEED_UPDATED_SUCCESSFULLY), { feed });
 };
 
@@ -40,11 +41,37 @@ userFeedController.updateFeeds = async (payload) => {
  * Function to upload file.
  */
 userFeedController.listFeeds = async (payload) => {
-  let criteria = { };
-  if(payload.categoryId){
-    criteria['_id'] = payload.userFeedId;
+  let matchQuery = { isDeleted: {$ne: true } };
+  
+  if(payload.userFeedId){
+    matchQuery['_id'] = payload.userFeedId;
   }
-  let feeds = await SERVICES.userFeedService.find(criteria);
+
+  if (payload.technology) {
+    matchQuery["categoryId"] = { "$in": payload.technology };
+  }
+
+  if (payload.author) {
+    matchQuery["createdBy"] = { "$in": payload.author };
+  }
+
+  let sort = {};
+  sort["createdAt"] = -1 || payload.sort;
+
+  let feeds = await SERVICES.userFeedService.aggregate([
+    {$match: matchQuery},
+    {$sort: sort},
+    {
+      $lookup: {
+        from: "users",
+        localField: "createdBy",
+        foreignField: "_id",
+        as: "user"
+      }
+    },
+    {$unwind: "$user"},
+    {$project: { "user.password": 0, "user.__v": 0, "user.createdAt": 0, "user.updatedAt": 0 }}
+  ]);
   return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_FETCHED_SUCCESSFULLY), { feeds });
 };
 

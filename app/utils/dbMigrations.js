@@ -16,13 +16,13 @@ dbMigrations.migerateDatabase = async () => {
 
     // check if it is initial version then do this to migerate database.
     if (!dbVersion || dbVersion.version <= CONSTANTS.DATABASE_VERSIONS.ONE) {
-        /** -- add first user  */
+        /** -- add dummy user  */
         let password = await hashPassword(TEST_USER.TEST_USER_PASSWORD);
         let saveData = { email: TEST_USER.TEST_USER_EMAIL, password: password, userType: CONSTANTS.USER_TYPE.ADMIN }
         user = await MODELS.userModel.findOneAndUpdate({ email: TEST_USER.TEST_USER_EMAIL }, saveData, { upsert: true, new: true });
         dbVersion = await MODELS.dbVersionModel.findOneAndUpdate({}, { version: CONSTANTS.DATABASE_VERSIONS.ONE }, { upsert: true, new: true});
     }
-    if (!dbVersion || dbVersion.version < CONSTANTS.DATABASE_VERSIONS.TWO) {
+    if (dbVersion.version < CONSTANTS.DATABASE_VERSIONS.TWO) {
         /** -- dummy categories  */
         let dataToSave = [ ];
 
@@ -32,7 +32,7 @@ dbMigrations.migerateDatabase = async () => {
         await MODELS.newsCategoryModel.insertMany(dataToSave);
         dbVersion = await MODELS.dbVersionModel.findOneAndUpdate({}, { version: CONSTANTS.DATABASE_VERSIONS.TWO }, { upsert: true, new: true});
     }
-    if (!dbVersion || dbVersion.version < CONSTANTS.DATABASE_VERSIONS.THREE) {
+    if (dbVersion.version < CONSTANTS.DATABASE_VERSIONS.THREE) {
         /** -- add dummy feeds  */
         let dataToSave = [ ];
         let categories = [ CONSTANTS.FEED_CATEGORIES.UI, CONSTANTS.FEED_CATEGORIES.AI ];
@@ -40,9 +40,9 @@ dbMigrations.migerateDatabase = async () => {
         for (let category of categories) {
             let categoryDetails = await MODELS.newsCategoryModel.findOne({ categoryName: category});
             dataToSave.push({createdBy: user._id, updatedBy: user._id, categoryId: categoryDetails._id, description: 'Testing Data'})
-            dbVersion = await MODELS.dbVersionModel.findOneAndUpdate({}, { version: CONSTANTS.DATABASE_VERSIONS.THREE }, { upsert: true, new: true});
         }
         await MODELS.userFeedModel.insertMany(dataToSave);
+        dbVersion = await MODELS.dbVersionModel.findOneAndUpdate({}, { version: CONSTANTS.DATABASE_VERSIONS.THREE }, { upsert: true, new: true});
     } 
 };
 

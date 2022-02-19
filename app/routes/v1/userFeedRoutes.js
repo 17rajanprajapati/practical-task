@@ -9,12 +9,12 @@ let routes = [
 		path: '/v1/feeds/',
 		joiSchema: {
 			headers: {
-				'authorization': Joi.string().required().description('Feed\'s JWT token.')
+				'authorization': Joi.string().required().description('User\'s JWT token.')
 			},
 			body: {
 				description: Joi.string().required().description('Feed\'s JWT token.'),
 				categoryId: Joi.string().required().description('Feed\'s JWT token.'),
-				imageUrl: Joi.string().required().description('Feed\'s JWT token.'),
+				imageUrl: Joi.string().optional().description('Feed\'s JWT token.'),
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
@@ -25,7 +25,7 @@ let routes = [
 		path: '/v1/feeds/',
 		joiSchema: {
 			headers: {
-				'authorization': Joi.string().required().description('Feed\'s JWT token.')
+				'authorization': Joi.string().required().description('User\'s JWT token.')
 			},
 			body: {
 				description: Joi.string().optional().description('Feed\'s JWT token.'),
@@ -39,13 +39,16 @@ let routes = [
 	},
 	{
 		method: 'GET',
-		path: '/v1/feeds/',
+		path: '/v1/feeds',
 		joiSchema: {
 			headers: {
-				'authorization': Joi.string().required().description('Feed\'s JWT token.')
+				'authorization': Joi.string().required().description('User\'s JWT token.')
 			},
 			query: {
-				userFeedId: Joi.string().optional().description('Feed\'s JWT token.'),
+				userFeedId: Joi.string().optional().description('Feed\'s Id.'),
+				sort: Joi.number().valid(1, -1).optional().description('Feed\'s Id.'),
+				// technologyIds: Joi.array.items(Joi.string()).optional().description('Feed\'s Id.'),
+				// authorIds: Joi.array.items(Joi.string()).optional().description('Feed\'s Id.'),
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
@@ -56,7 +59,7 @@ let routes = [
 		path: '/v1/feeds/',
 		joiSchema: {
 			headers: {
-				'authorization': Joi.string().required().description('Feed\'s JWT token.')
+				'authorization': Joi.string().required().description('User\'s JWT token.')
 			},
 			query: {
 				userFeedId: Joi.string().required().description('Feed\'s JWT token.'),

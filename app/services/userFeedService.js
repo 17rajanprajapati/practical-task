@@ -7,8 +7,6 @@ let userFeedService = {};
  * function to register a new  user
  */
 userFeedService.create = async (payload) => {
-  // encrypt user's password and store it in the database.
-  payload.password = await utils.hashPassword(payload.password);
   return await userFeedModel(payload).save();
 };
 
@@ -28,6 +26,11 @@ userFeedService.findOne = async (criteria, projection) => {
 
 userFeedService.find = async (criteria, projection) => {
   return await userFeedModel.find(criteria, projection).lean();
+};
+
+
+userFeedService.aggregate = async (query) => {
+  return await userFeedModel.aggregate(query);
 };
 
 module.exports = userFeedService;
