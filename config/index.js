@@ -20,9 +20,9 @@ module.exports = {
         BUCKET_NAME: process.env.S3_BUCKET_NAME || 's3-bucket-name',
         CLOUD_FRONT_URL: process.env.CLOUD_FRONT_URL || 'cloud-front-url'
     },
-    SUPER_ADMIN: {
-        SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL || 'admin@yopmail.com',
-        SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD || 'password'
+    TEST_USER: {
+        TEST_USER_EMAIL: process.env.TEST_USER_EMAIL || 'test@yopmail.com',
+        TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD || 'password'
     }
 };
 

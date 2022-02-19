@@ -38,9 +38,6 @@ let validateUser = async (request, auth) => {
         }
         let user = await userModel.findOne({ _id: decodedToken.id }).lean();
         if (user) {
-            if (auth === AVAILABLE_AUTHS.USER && user.userType != USER_TYPE.USER) {
-                return { isAuthorized: false }
-            }
             request.user = user;
             return { isAuthorized: true };
         }

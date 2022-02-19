@@ -4,12 +4,10 @@ CONSTANTS.MESSAGES = require('./messages');
 
 CONSTANTS.AVAILABLE_AUTHS = {
     USER: "user",
-    ADMIN: "admin",
 };
 
 CONSTANTS.USER_TYPE = {
-    ADMIN: 1,
-    USER: 2,
+    USER: 1,
 };
 
 CONSTANTS.PHONE_REGEX=/^\+\d{1,3}\d{8,10}$/;
@@ -25,8 +23,19 @@ CONSTANTS.GENDER = {
     FEMALE: "Female"
 };
 
+CONSTANTS.FEED_CATEGORIES = {
+    TECH: "TECH",
+    UI: "UI",
+    DESIGN: "DESIGN",
+    MARKETING: "MARKETING",
+    AI: "AI",
+    TESTING: "TESTING",
+};
+
 CONSTANTS.DATABASE_VERSIONS = {
     ONE: 1,
+    TWO: 2,
+    THREE: 3,
 };
 
 CONSTANTS.LANGUAGE = {

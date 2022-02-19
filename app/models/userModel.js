@@ -17,7 +17,6 @@ const userSchema = new Schema({
     dob: { type: Date },
     timeOfBirth: { type: String },
     profileImageUrl: { type: String },
-    userType: { type: Number, enum: Object.values(USER_TYPE), default: USER_TYPE.USER },
 });
 
 userSchema.set('timestamps', true);
