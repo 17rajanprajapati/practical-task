@@ -99,6 +99,5 @@ userController.updateProfile = async (payload) => {
   return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.USER_UPDATED_SUCCESSFULLY), { data: updatedUser });
 };
 
-
 /* export userController */
 module.exports = userController;

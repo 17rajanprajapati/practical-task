@@ -1,34 +1,38 @@
 const { userFeedModel } = require(`../models`);
-const utils = require(`../utils/utils`);
 
 let userFeedService = {};
 
 /** 
- * function to register a new  user
+ * function to create userFeed
  */
 userFeedService.create = async (payload) => {
   return await userFeedModel(payload).save();
 };
 
 /**
- * function to update user.
+ * function to update one userFeed.
  */
 userFeedService.findOneAndUpdate = async (criteria, dataToUpdate, options) => {
   return await userFeedModel.findOneAndUpdate(criteria, dataToUpdate, options);
 };
 
 /**
- * function to fetch user from the system based on criteria.
+ * function to find one userFeed.
  */
 userFeedService.findOne = async (criteria, projection) => {
   return await userFeedModel.findOne(criteria, projection).lean();
 };
 
+/**
+ * function to find userFeed.
+ */
 userFeedService.find = async (criteria, projection) => {
   return await userFeedModel.find(criteria, projection).lean();
 };
 
-
+/**
+ * function to apply aggregate on userFeed Model.
+ */
 userFeedService.aggregate = async (query) => {
   return await userFeedModel.aggregate(query);
 };

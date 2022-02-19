@@ -4,7 +4,7 @@ const Schema = MONGOOSE.Schema;
 
 const { GENDER, LANGUAGE } = require('../utils/constants');
 /**************************************************
- ************* User Model or collection ***********
+ ************* User Feed Model or collection ***********
  **************************************************/
 const userFeedSchema = new Schema({
     description: { type: String },

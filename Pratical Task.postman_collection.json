@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6c070aae-7f7c-464f-9b08-33066e3cf079",
+		"_postman_id": "2a14a73c-bf63-40d7-ba96-00b7fc2b2d07",
 		"name": "Pratical Task",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -21,12 +21,12 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/v1/file/upload",
+					"raw": "http://localhost:3005/v1/file/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3005",
 					"path": [
 						"v1",
 						"file",
@@ -53,7 +53,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"password\": \"12345\",\n    \"firstName\": \"Rajan\",\n    \"lastName\": \"Kumar\",\n    \"email\": \"example@example.com\",\n    \"profileImage\": \"https://dg3mxdb09w1mp.cloudfront.net/1641473034551_profile.jpg\"\n}",
+					"raw": "{\n    \"password\": \"12345\",\n    \"fullName\": \"Rajan Kumar\",\n    \"email\": \"example@example.com\",\n    \"gender\": \"Male\",\n    \"phoneNumber\": \"+919997481571\",\n    \"language\": \"English\",\n    \"martialStatus\": true,\n    \"dob\": \"1998-06-25\",\n    \"timeOfBirth\": \"08:20:11\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -93,7 +93,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"password\": \"12345\",\n    \"email\": \"example@example.com\"\n}",
+					"raw": "{\n    \"password\": \"password\",\n    \"email\": \"admin@yopmail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -173,6 +173,195 @@
 						"v1",
 						"user",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add News Feed",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGYzYzU2YTg2YTBmMjk1NGY4MDI1NyIsImRhdGUiOjE2NDUxNjU5NDAyMTIsImlhdCI6MTY0NTE2NTk0MCwiZXhwIjoxNjQ1MTY2ODQwfQ.y54V8Gim9GqxPps74_3_joNubJ8SYIKewQg1yPBrrTA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Testing\",\n\t\"categoryId\": \"6210ca3dc61cce29147046da\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/feeds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"feeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Feeds",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGYzYzU2YTg2YTBmMjk1NGY4MDI1NyIsImRhdGUiOjE2NDUxNjU5NDAyMTIsImlhdCI6MTY0NTE2NTk0MCwiZXhwIjoxNjQ1MTY2ODQwfQ.y54V8Gim9GqxPps74_3_joNubJ8SYIKewQg1yPBrrTA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Data\",\n\t\"categoryId\": \"6210ca3dc61cce29147046da\",\n    \"userFeedId\": \"6210cf372e33be35c37ad1e4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/feeds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"feeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List User Feeds",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGYzYzU2YTg2YTBmMjk1NGY4MDI1NyIsImRhdGUiOjE2NDUxNjU5NDAyMTIsImlhdCI6MTY0NTE2NTk0MCwiZXhwIjoxNjQ1MTY2ODQwfQ.y54V8Gim9GqxPps74_3_joNubJ8SYIKewQg1yPBrrTA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/v1/feeds?sort=1&userFeedId=6210cf372e33be35c37ad1e4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"feeds"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "1"
+						},
+						{
+							"key": "userFeedId",
+							"value": "6210cf372e33be35c37ad1e4"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Feed",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGYzYzU2YTg2YTBmMjk1NGY4MDI1NyIsImRhdGUiOjE2NDUxNjU5NDAyMTIsImlhdCI6MTY0NTE2NTk0MCwiZXhwIjoxNjQ1MTY2ODQwfQ.y54V8Gim9GqxPps74_3_joNubJ8SYIKewQg1yPBrrTA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categoryId\": \"620f3dc0945c9a5963b0d65c\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/newsCategory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"newsCategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List News Category",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGYzYzU2YTg2YTBmMjk1NGY4MDI1NyIsImRhdGUiOjE2NDUxNjU5NDAyMTIsImlhdCI6MTY0NTE2NTk0MCwiZXhwIjoxNjQ1MTY2ODQwfQ.y54V8Gim9GqxPps74_3_joNubJ8SYIKewQg1yPBrrTA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/v1/newsCategories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"newsCategories"
 					]
 				}
 			},

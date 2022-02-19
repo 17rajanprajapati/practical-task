@@ -6,12 +6,13 @@ const { getPaginationConditionForAggregate } = require('../utils/utils');
 let userFeedController = {};
 
 /**
- * function to create.
+ * function to create user feed.
  */
 userFeedController.createFeed = async (payload) => {
   let criteria = { _id: payload.categoryId };
 
   let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
+  // check category exist or not
   if (!isCategory) {
     throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
   }
@@ -20,19 +21,24 @@ userFeedController.createFeed = async (payload) => {
 };
 
 /**
- * Function to update.
+ * Function to update user feeds.
  */
 userFeedController.updateFeeds = async (payload) => {
-  let criteria = { _id: payload.categoryId };
-  let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
-  if (!isCategory) {
-    throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
-  }
-
-  let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId });
+  let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId, createdBy: payload.user._id });
+  // check user feed exist or not
   if (!isFeed) {
     throw HELPERS.responseHelper.createErrorResponse(MESSAGES.FEED_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
   }
+
+  if (payload.categoryId){
+    let criteria = { _id: payload.categoryId };
+    let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
+    // check category exits or not
+    if (!isCategory) {
+      throw HELPERS.responseHelper.createErrorResponse(MESSAGES.CATEGORY_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
+    }
+  }
+
   let feed = await SERVICES.userFeedService.findOneAndUpdate({ _id: payload.userFeedId }, {...payload}, { new: true });
   return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.FEED_UPDATED_SUCCESSFULLY), { feed });
 };
@@ -81,7 +87,8 @@ userFeedController.listFeeds = async (payload) => {
  * @returns 
  */
 userFeedController.deleteFeed = async (payload) => {
-  let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId });
+  let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId, createdBy: payload.user._id });
+  // check user feed exist or not
   if (!isFeed) {
     throw HELPERS.responseHelper.createErrorResponse(MESSAGES.FEED_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);
   }
