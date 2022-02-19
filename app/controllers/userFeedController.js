@@ -7,7 +7,7 @@ let userFeedController = {};
 /**
  * function to create.
  */
-userFeedController.create = async (payload) => {
+userFeedController.createFeed = async (payload) => {
   let criteria = { categoryId: payload.categoryId };
 
   let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
@@ -21,7 +21,7 @@ userFeedController.create = async (payload) => {
 /**
  * Function to update.
  */
-userFeedController.update = async (payload) => {
+userFeedController.updateFeeds = async (payload) => {
   let criteria = { _id: payload.categoryId };
   let isCategory = await SERVICES.newsCategoryService.findOne(criteria);
   if (!isCategory) {
@@ -39,7 +39,7 @@ userFeedController.update = async (payload) => {
 /**
  * Function to upload file.
  */
-userFeedController.list = async (payload) => {
+userFeedController.listFeeds = async (payload) => {
   let criteria = { };
   if(payload.categoryId){
     criteria['_id'] = payload.userFeedId;
@@ -53,7 +53,7 @@ userFeedController.list = async (payload) => {
  * @param {*} payload 
  * @returns 
  */
-userFeedController.delete = async (payload) => {
+userFeedController.deleteFeed = async (payload) => {
   let isFeed = await SERVICES.userFeedService.findOne({ _id: payload.userFeedId });
   if (!isFeed) {
     throw HELPERS.responseHelper.createErrorResponse(MESSAGES.FEED_NOT_FOUND, ERROR_TYPES.BAD_REQUEST);

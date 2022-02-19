@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { AVAILABLE_AUTHS } = require(`../../utils/constants`);
 //load controllers
-const {  } = require(`../../controllers/userController`);
+const { userFeedController } = require(`../../controllers`);
 
 let routes = [
 	{
@@ -18,7 +18,7 @@ let routes = [
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
-		handler: getFeeds
+		handler: userFeedController.createFeed
 	},
 	{
 		method: 'PUT',
@@ -35,7 +35,7 @@ let routes = [
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
-		handler: getFeeds
+		handler: userFeedController.updateFeeds
 	},
 	{
 		method: 'GET',
@@ -49,7 +49,7 @@ let routes = [
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
-		handler: getFeeds
+		handler: userFeedController.listFeeds
 	},
 	{
 		method: 'DELETE',
@@ -63,7 +63,7 @@ let routes = [
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
-		handler: getFeeds
+		handler: userFeedController.deleteFeed
 	}
 ];
 

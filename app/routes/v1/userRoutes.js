@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { AVAILABLE_AUTHS, GENDER, LANGUAGE, PHONE_REGEX, TIME_REGEX } = require(`../../utils/constants`);
 //load controllers
-const {  registerNewUser, login, uploadFile, updateProfile, getUserProfile } = require(`../../controllers/userController`);
+const { userController } = require(`../../controllers`);
 
 let routes = [
 	{
@@ -13,7 +13,7 @@ let routes = [
 				file: Joi.any().meta({ swaggerType: 'file' }).optional().description('Image file to upload')
 			}
 		},
-		handler: uploadFile
+		handler: userController.uploadFile
 	},
 	{
 		method: 'POST',
@@ -32,7 +32,7 @@ let routes = [
 				profileImage: Joi.string().allow('').optional().description('Url of profile image.')
 			}
 		},
-		handler: registerNewUser
+		handler: userController.registerNewUser
 	},
 	{
 		method: 'POST',
@@ -43,7 +43,7 @@ let routes = [
 				password: Joi.string().description('User\'s password')
 			}
 		},
-		handler: login
+		handler: userController.login
 	},
 	{
 		method: 'PUT',
@@ -66,7 +66,7 @@ let routes = [
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
-		handler: updateProfile
+		handler: userController.updateProfile
 	},
 	{
 		method: 'GET',
@@ -77,7 +77,7 @@ let routes = [
 			}
 		},
 		auth: AVAILABLE_AUTHS.USER,
-		handler: getUserProfile
+		handler: userController.getUserProfile
 	}
 ];
 

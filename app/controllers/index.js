@@ -4,6 +4,5 @@
  ********************************/
 module.exports = {
     userController: require(`./userController`),
-    newsCategoryController: require(`./newsCategoryController`),
-    userController: require(`./userController`),
+    userFeedController: require(`./userFeedController`),
 };

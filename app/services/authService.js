@@ -40,8 +40,6 @@ let validateUser = async (request, auth) => {
         if (user) {
             if (auth === AVAILABLE_AUTHS.USER && user.userType != USER_TYPE.USER) {
                 return { isAuthorized: false }
-            } else if (auth === AVAILABLE_AUTHS.ADMIN && user.userType != USER_TYPE.ADMIN) {
-                return { isAuthorized: false }
             }
             request.user = user;
             return { isAuthorized: true };
