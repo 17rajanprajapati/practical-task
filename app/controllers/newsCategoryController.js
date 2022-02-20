@@ -1,6 +1,7 @@
 const HELPERS = require("../helpers");
 const { MESSAGES } = require('../utils/constants');
 const SERVICES = require('../services');
+const { convertIdToMongooseId } = require('../utils/utils');
 
 let newsCategoryController = {};
 
@@ -8,12 +9,16 @@ let newsCategoryController = {};
  * Function to list news category.
  */
 newsCategoryController.list = async (payload) => {
-  let criteria = { };
-  if(payload.categoryId){
-    criteria['_id'] = payload.categoryId;
+  try{
+    let criteria = { };
+    if(payload.categoryId){
+      criteria['_id'] = convertIdToMongooseId(payload.categoryId);
+    }
+    let catgeories = await SERVICES.newsCategoryService.find(criteria);
+    return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_FETCHED_SUCCESSFULLY), { catgeories });
+  } catch(err){
+    throw HELPERS.responseHelper.createErrorResponse(err.message, ERROR_TYPES.BAD_REQUEST);
   }
-  let catgeories = await SERVICES.newsCategoryService.find(criteria);
-  return Object.assign(HELPERS.responseHelper.createSuccessResponse(MESSAGES.CATEGORY_FETCHED_SUCCESSFULLY), { catgeories });
 };
 
 /* export newsCategoryController */
