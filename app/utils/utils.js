@@ -1,6 +1,7 @@
 let CONSTANTS = require('./constants');
 const BCRYPT = require("bcrypt");
 const JWT = require("jsonwebtoken");
+const MONGOOSE = require('mongoose');
 
 let commonFunctions = {};
 
@@ -43,6 +44,11 @@ commonFunctions.encryptJwt = (payload) => {
  */
 commonFunctions.decryptJwt = (token) => {
   return JWT.verify(token, CONSTANTS.SECURITY.JWT_SIGN_KEY, { algorithm: 'HS256' })
+};
+
+/** used for converting string id to mongoose object id */
+commonFunctions.convertIdToMongooseId = (stringId) => {
+  return MONGOOSE.Types.ObjectId(stringId);
 };
 
 module.exports = commonFunctions;
